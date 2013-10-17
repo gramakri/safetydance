@@ -16,6 +16,10 @@ exports = module.exports = {
     }
 }
 
+function _argsArray(args) {
+    return Array.prototype.slice.call(args, 0);
+}
+
 function safeCall(optionalThis, func) {
     exports.error = null;
 
@@ -25,10 +29,6 @@ function safeCall(optionalThis, func) {
         exports.error = e;
         return null;
     }
-}
-
-function _argsArray(args) {
-    return Array.prototype.slice.call(args, 0);
 }
 
 function jsonParse() {

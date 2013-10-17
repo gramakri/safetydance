@@ -17,6 +17,19 @@ npm install safetydance
 
 Usage
 -----
+You can call arbitrary functions without having to worry about exceptions.
+```
+var safeCall = require('safetydance').safeCall;
+var result = safeCall(function () { return 1 + 2; }); // will return 3
+result = safeCall(function () { throw new Error('bad'); }); // will return null
+```
+
+You can pass the 'this' as the first argument.
+```
+var obj = { a: 10 };
+var result = safeCall(obj, function () { return obj.a; }); // will return 10
+```
+
 ```
 var safe = require('safetydance');
 var json = safe.JSON.parse('This is totally { not json }');
@@ -31,9 +44,4 @@ console.log(json); // { totally: "json" }
 console.log(safe.error); // will be null
 ```
 
-You can also call arbitrary functions.
-```
-var safeCall = require('safe').safeCall;
-var result = safeCall(function () { return 1 + 2; }); // will return 3
-result = safeCall(function () { throw new Error('bad'); }); // will return null
-```
+
