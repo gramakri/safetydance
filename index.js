@@ -7,7 +7,9 @@ exports = module.exports = {
     },
     fs: {
         readFileSync: readFileSync,
-        writeFileSync: writeFileSync
+        writeFileSync: writeFileSync,
+        statSync: statSync,
+        existsSync: existsSync
     },
     error: null
 }
@@ -50,6 +52,28 @@ function writeFileSync() {
 
     try {
         return fs.writeFileSync.apply(null, Array.prototype.slice.call(arguments, 0));
+    } catch (e) {
+        exports.error = e;
+        return null;
+    }
+}
+
+function statSync() {
+    exports.error = null;
+
+    try {
+        return fs.statSync.apply(null, Array.prototype.slice.call(arguments, 0));
+    } catch (e) {
+        exports.error = e;
+        return null;
+    }
+}
+
+function existsSync() {
+    exports.error = null;
+
+    try {
+        return fs.existsSync.apply(null, Array.prototype.slice.call(arguments, 0));
     } catch (e) {
         exports.error = e;
         return null;
