@@ -30,6 +30,7 @@ var obj = { a: 10 };
 var result = safeCall(obj, function () { return obj.a; }); // will return 10
 ```
 
+This module provide conveniences for commonly used functions.
 ```
 var safe = require('safetydance');
 var json = safe.JSON.parse('This is totally { not json }');
@@ -44,4 +45,15 @@ console.log(json); // { totally: "json" }
 console.log(safe.error); // will be null
 ```
 
+API
+---
+* safeCall(optionalThis, functionToCall)
+* error - the error of the last function call
+* Convenience (refer to node.js docs for details)
+  * JSON.parse
+  * JSON.stringify
+  * fs.readFileSync
+  * fs.writeFileSync
+  * fs.statSync
+  * fs.existsSync
 
