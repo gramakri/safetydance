@@ -42,7 +42,7 @@ result = safeCall(function () { throw new Error('bad'); }); // will return null
 You can pass the 'this' as the first argument.
 ```
 var obj = { a: 10 };
-var result = safeCall(obj, function () { return obj.a; }); // will return 10
+var result = safeCall(obj, function () { return this.a; }); // will return 10
 ```
 
 This module provide conveniences for commonly used functions.
