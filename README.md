@@ -1,7 +1,10 @@
-Safety Dance node module
-=======================
+Safety Dance
+============
 
-If you are annoyed with JavaScript functions throwing exceptions and
+This node.js module provides you exception safety. That is to say that
+the functions of this module never ever throw.
+
+If you are annoyed with node.js built-in API throwing exceptions and
 using exceptions as multi-value return statements, this module is for you.
 
 This module catches any exception and returns null instead for all the
