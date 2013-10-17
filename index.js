@@ -33,31 +33,31 @@ function safeCall(optionalThis, func) {
 
 function jsonParse() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return JSON.parse.apply(null, args); });
+    return safeCall(null, function () { return JSON.parse.apply(JSON, args); });
 }
 
 function jsonStringify() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return JSON.stringify.apply(null, args); });
+    return safeCall(null, function () { return JSON.stringify.apply(JSON, args); });
 }
 
 function readFileSync() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return fs.readFileSync(null, args); });
+    return safeCall(null, function () { return fs.readFileSync.apply(fs, args); });
 }
 
 function writeFileSync() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return fs.writeFileSync(null, args); });
+    return safeCall(null, function () { return fs.writeFileSync.apply(fs, args); });
 }
 
 function statSync() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return fs.statSync(null, args); });
+    return safeCall(null, function () { return fs.statSync.apply(fs, args); });
 }
 
 function existsSync() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return fs.existsSync(null, args); });
+    return safeCall(null, function () { return fs.existsSync.apply(fs, args); });
 }
 
