@@ -52,5 +52,12 @@ describe('safeCall', function () {
         expect(result).to.be(null);
         expect(safe.error).to.not.be(null);
     });
+
+    it('should set this', function () {
+        var obj = { a: 10 };
+        var result = safe.safeCall(obj, function () { return this.a; });
+        expect(result).to.be(10);
+        expect(safe.error).to.be(null);
+    });
 });
 

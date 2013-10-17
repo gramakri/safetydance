@@ -81,11 +81,11 @@ function existsSync() {
     }
 }
 
-function safeCall(func) {
+function safeCall(optionalThis, func) {
     exports.error = null;
 
     try {
-        return func();
+        return (arguments.length === 1) ? optionalThis() : func.call(optionalThis);
     } catch (e) {
         exports.error = e;
         return null;
