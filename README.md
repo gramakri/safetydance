@@ -9,7 +9,7 @@ using exceptions as multi-value return statements, this module is for you.
 
 This module catches any exception in the function you want to call. If there
 is no exception, it behaves as always. If there was an exception, it catches
-it, makes it available via error property (like errno) and returns null.
+it, makes it available via error property (like errno).
 
 So, instead of:
 ```
@@ -71,4 +71,5 @@ API
   * fs.writeFileSync
   * fs.statSync
   * fs.existsSync
+  * fs.mkdirSync
 

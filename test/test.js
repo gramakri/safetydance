@@ -9,7 +9,8 @@
 
 var safe = require('../index.js'),
     assert = require('assert'),
-    expect = require('expect.js');
+    expect = require('expect.js'),
+    os = require('os');
 
 describe('JSON', function () {
     it('should not throw error when parsing bad JSON', function () {
@@ -37,6 +38,10 @@ describe('fs', function () {
     it('should not throw error when reading non-existent file', function () {
         var fileContents = safe.fs.readFileSync('RANDOM');
         expect(fileContents).to.be(null);
+    });
+    it('should not throw on creating existing dir', function () {
+        expect(safe.fs.mkdirSync(os.tmpdir())).to.be(false);
+        expect(safe.error).to.not.be(null);
     });
 });
 

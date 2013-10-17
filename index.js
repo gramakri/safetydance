@@ -12,7 +12,8 @@ exports = module.exports = {
         readFileSync: readFileSync,
         writeFileSync: writeFileSync,
         statSync: statSync,
-        existsSync: existsSync
+        existsSync: existsSync,
+        mkdirSync: mkdirSync
     }
 }
 
@@ -56,8 +57,14 @@ function statSync() {
     return safeCall(null, function () { return fs.statSync.apply(fs, args); });
 }
 
+// afaik, this never throws
 function existsSync() {
     var args = _argsArray(arguments);
     return safeCall(null, function () { return fs.existsSync.apply(fs, args); });
+}
+
+function mkdirSync() {
+    var args = _argsArray(arguments);
+    return safeCall(null, function () { return fs.mkdirSync.apply(fs, args) }) === undefined; ;
 }
 
