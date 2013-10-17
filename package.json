@@ -1,0 +1,26 @@
+{
+  "name": "safetydance",
+  "description": "Exception safety in node.js",
+  "version": "0.0.1",
+  "author": {
+    "name": "Girish Ramakrishnan",
+    "email": "girish@forwardbias.in"
+  },
+  "engines": [
+    "node >= 0.8.0"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gramakri/safetydance.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "expect.js": "*"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -- ./test"
+  }
+}
+
