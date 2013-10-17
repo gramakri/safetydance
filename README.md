@@ -14,12 +14,17 @@ npm install safetydance
 
 Usage
 -----
+```
 var safe = require('safetydance');
 var json = safe.JSON.parse('This is totally { not json }');
 console.log(json); // will be null
 console.log(safe.error); // will contain SyntaxError
+```
 
+The error gets cleared for successful operations.
+```
 json = safe.JSON.parse('{ "totally" : "json" }');
 console.log(json); // { totally: "json" }
 console.log(safe.error); // will be null
+```
 
