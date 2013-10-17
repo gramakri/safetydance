@@ -59,7 +59,7 @@ function readFileSync() {
 
 function writeFileSync() {
     var args = _argsArray(arguments);
-    return !!safeCall(function () { return fs.writeFileSync.apply(fs, args); }, false);
+    return safeCall(function () { return fs.writeFileSync.apply(fs, args); }) !== null;
 }
 
 function statSync() {
@@ -75,6 +75,6 @@ function existsSync() {
 
 function mkdirSync() {
     var args = _argsArray(arguments);
-    return !!safeCall(function () { return fs.mkdirSync.apply(fs, args) }, false); ;
+    return safeCall(function () { return fs.mkdirSync.apply(fs, args); }) !== null;
 }
 

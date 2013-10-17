@@ -10,7 +10,9 @@
 var safe = require('../index.js'),
     assert = require('assert'),
     expect = require('expect.js'),
-    os = require('os');
+    os = require('os'),
+    path = require('path'),
+    crypto = require('crypto');
 
 describe('JSON', function () {
     it('should not throw error when parsing bad JSON', function () {
@@ -41,7 +43,12 @@ describe('fs', function () {
     });
     it('should not throw on creating existing dir', function () {
         expect(safe.fs.mkdirSync(os.tmpdir())).to.be(false);
-        expect(safe.error).to.not.be(null);
+        expect(safe.error).to.not.be(null); // EEXIST
+    });
+    it('should return true for creating dir', function () {
+        var tmpdirname = 'safetydance-test-' + crypto.randomBytes(4).readUInt32LE(0);
+        var tmpdir = path.resolve(os.tmpdir(), tmpdirname);
+        expect(safe.fs.mkdirSync(tmpdir)).to.be(true);
     });
 });
 
