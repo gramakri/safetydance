@@ -62,14 +62,14 @@ console.log(safe.error); // will be null
 
 API
 ---
-* safeCall(optionalThis, functionToCall)
+* safeCall(optionalThis, functionToCall, valueToReturnIfErrored)
 * error - the error of the last function call
 * Convenience (refer to node.js docs for details)
-  * JSON.parse
-  * JSON.stringify
-  * fs.readFileSync
-  * fs.writeFileSync
-  * fs.statSync
-  * fs.existsSync
-  * fs.mkdirSync
+  * JSON.parse - returns null on error, object on success
+  * JSON.stringify - returns null on error, string on success
+  * fs.readFileSync - returns null on error, string/buffer on success
+  * fs.writeFileSync - returns false on error, true on success
+  * fs.statSync - returns null on error, stat object on success
+  * fs.existsSync - returns false on error, true/false on success
+  * fs.mkdirSync - returns false on error, true on success
 

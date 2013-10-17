@@ -21,50 +21,60 @@ function _argsArray(args) {
     return Array.prototype.slice.call(args, 0);
 }
 
-function safeCall(optionalThis, func) {
+function safeCall(optionalThis, func, errorReturnValue) {
     exports.error = null;
 
+    if (typeof optionalThis === 'function') {
+        errorReturnValue = func;
+        func = optionalThis;
+        optionalThis = null;
+    }
+
+    if (typeof errorReturnValue === 'undefined') {
+        errorReturnValue = null;
+    }
+
     try {
-        return (arguments.length === 1) ? optionalThis() : func.call(optionalThis);
+        return func.call(optionalThis);
     } catch (e) {
         exports.error = e;
-        return null;
+        return errorReturnValue;
     }
 }
 
 function jsonParse() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return JSON.parse.apply(JSON, args); });
+    return safeCall(function () { return JSON.parse.apply(JSON, args); }, null);
 }
 
 function jsonStringify() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return JSON.stringify.apply(JSON, args); });
+    return safeCall(function () { return JSON.stringify.apply(JSON, args); }, null);
 }
 
 function readFileSync() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return fs.readFileSync.apply(fs, args); });
+    return safeCall(function () { return fs.readFileSync.apply(fs, args); }, null);
 }
 
 function writeFileSync() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return fs.writeFileSync.apply(fs, args); });
+    return !!safeCall(function () { return fs.writeFileSync.apply(fs, args); }, false);
 }
 
 function statSync() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return fs.statSync.apply(fs, args); });
+    return safeCall(function () { return fs.statSync.apply(fs, args); }, null);
 }
 
 // afaik, this never throws
 function existsSync() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return fs.existsSync.apply(fs, args); });
+    return safeCall(function () { return fs.existsSync.apply(fs, args); }, false);
 }
 
 function mkdirSync() {
     var args = _argsArray(arguments);
-    return safeCall(null, function () { return fs.mkdirSync.apply(fs, args) }) === undefined; ;
+    return !!safeCall(function () { return fs.mkdirSync.apply(fs, args) }, false); ;
 }
 
