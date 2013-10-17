@@ -40,3 +40,17 @@ describe('fs', function () {
     });
 });
 
+describe('safeCall', function () {
+    it('should call', function () {
+        var result = safe.safeCall(function () { return 1 + 2; });
+        expect(result).to.be(3);
+        expect(safe.error).to.be(null);
+    });
+
+    it('should return null on exception', function () {
+        var result = safe.safeCall(function () { throw new Error('OOPS'); });
+        expect(result).to.be(null);
+        expect(safe.error).to.not.be(null);
+    });
+});
+

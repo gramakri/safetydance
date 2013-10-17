@@ -11,6 +11,7 @@ exports = module.exports = {
         statSync: statSync,
         existsSync: existsSync
     },
+    safeCall: safeCall,
     error: null
 }
 
@@ -74,6 +75,17 @@ function existsSync() {
 
     try {
         return fs.existsSync.apply(null, Array.prototype.slice.call(arguments, 0));
+    } catch (e) {
+        exports.error = e;
+        return null;
+    }
+}
+
+function safeCall(func) {
+    exports.error = null;
+
+    try {
+        return func();
     } catch (e) {
         exports.error = e;
         return null;
