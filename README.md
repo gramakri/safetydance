@@ -31,3 +31,9 @@ console.log(json); // { totally: "json" }
 console.log(safe.error); // will be null
 ```
 
+You can also call arbitrary functions.
+```
+var safeCall = require('safe').safeCall;
+var result = safeCall(function () { return 1 + 2; }); // will return 3
+result = safeCall(function () { throw new Error('bad'); }); // will return null
+```
