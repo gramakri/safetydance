@@ -50,6 +50,14 @@ describe('fs', function () {
         var tmpdir = path.resolve(os.tmpdir(), tmpdirname);
         expect(safe.fs.mkdirSync(tmpdir)).to.be(true);
     });
+    it('should return true for removing files', function () {
+        var tmpfile = path.join(os.tmpdir(), 'safetydance-test-' + crypto.randomBytes(4).readUInt32LE(0));
+        safe.fs.writeFileSync(tmpfile, 'whatever');
+        expect(safe.fs.unlinkSync(tmpfile)).to.be(true);
+    });
+    it('should not throw when unlinking missing file', function () {
+        expect(safe.fs.unlinkSync('/this/is')).to.be(false);
+    });
 });
 
 describe('safeCall', function () {

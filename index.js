@@ -13,7 +13,8 @@ exports = module.exports = {
         writeFileSync: writeFileSync,
         statSync: statSync,
         existsSync: existsSync,
-        mkdirSync: mkdirSync
+        mkdirSync: mkdirSync,
+        unlinkSync: unlinkSync
     }
 }
 
@@ -76,5 +77,10 @@ function existsSync() {
 function mkdirSync() {
     var args = _argsArray(arguments);
     return safeCall(function () { return fs.mkdirSync.apply(fs, args); }) !== null;
+}
+
+function unlinkSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.unlinkSync.apply(fs, args); }) !== null;
 }
 

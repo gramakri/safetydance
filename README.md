@@ -72,4 +72,5 @@ API
   * fs.statSync - returns null on error, stat object on success
   * fs.existsSync - returns false on error, true/false on success
   * fs.mkdirSync - returns false on error, true on success
+  * fs.unlinkSync - returns false on error, true on success
 
