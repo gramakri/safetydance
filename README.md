@@ -32,7 +32,7 @@ npm install safetydance
 
 Usage
 -----
-You can call arbitrary functions without having to worry about exceptions.
+You can call arbitrary synchronous functions without having to worry about exceptions.
 ```
 var safeCall = require('safetydance').safeCall;
 var result = safeCall(function () { return 1 + 2; }); // will return 3
