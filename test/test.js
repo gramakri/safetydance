@@ -58,6 +58,15 @@ describe('fs', function () {
     it('should not throw when unlinking missing file', function () {
         expect(safe.fs.unlinkSync('/this/is')).to.be(false);
     });
+    it('should not throw when trying to create existing file', function () {
+        expect(safe.fs.openSync('/tmp')).to.be(-1);
+    });
+    it('should open temp files', function () {
+        expect(safe.fs.openSync('/tmp/amazing', 'w')).to.not.be(-1);
+    });
+    it('should not throw when closing non-existent fd', function () {
+        expect(safe.fs.closeSync(1242)).to.be(0);
+    });
 });
 
 describe('safeCall', function () {

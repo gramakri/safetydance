@@ -9,6 +9,8 @@ exports = module.exports = {
         stringify: jsonStringify
     },
     fs: {
+        openSync: openSync,
+        closeSync: closeSync,
         readFileSync: readFileSync,
         writeFileSync: writeFileSync,
         statSync: statSync,
@@ -51,6 +53,16 @@ function jsonParse() {
 function jsonStringify() {
     var args = _argsArray(arguments);
     return safeCall(function () { return JSON.stringify.apply(JSON, args); }, null);
+}
+
+function openSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.openSync.apply(fs, args); }, -1);
+}
+
+function closeSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.closeSync.apply(fs, args); }, 0);
 }
 
 function readFileSync() {
