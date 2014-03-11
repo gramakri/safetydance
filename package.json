@@ -6,6 +6,7 @@
     "name": "Girish Ramakrishnan",
     "email": "girish@forwardbias.in"
   },
+  "license": "MIT",
   "engines": [
     "node >= 0.8.0"
   ],
