@@ -71,6 +71,27 @@ describe('fs', function () {
 
 describe('safeCall', function () {
     it('should call', function () {
+        var result = safe(function () { return 1 + 2; });
+        expect(result).to.be(3);
+        expect(safe.error).to.be(null);
+    });
+
+    it('should return null on exception', function () {
+        var result = safe(function () { throw new Error('OOPS'); });
+        expect(result).to.be(null);
+        expect(safe.error).to.not.be(null);
+    });
+
+    it('should set this', function () {
+        var obj = { a: 10 };
+        var result = safe(obj, function () { return this.a; });
+        expect(result).to.be(10);
+        expect(safe.error).to.be(null);
+    });
+});
+
+describe('safeCall (compat)', function () {
+    it('should call', function () {
         var result = safe.safeCall(function () { return 1 + 2; });
         expect(result).to.be(3);
         expect(safe.error).to.be(null);

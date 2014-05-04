@@ -1,31 +1,11 @@
 var fs = require('fs');
 
-exports = module.exports = {
-    safeCall: safeCall, // this is the main API, the rest are all convenience
-    error: null, // the last error
-
-    JSON: {
-        parse: jsonParse,
-        stringify: jsonStringify
-    },
-    fs: {
-        openSync: openSync,
-        closeSync: closeSync,
-        readFileSync: readFileSync,
-        writeFileSync: writeFileSync,
-        statSync: statSync,
-        existsSync: existsSync,
-        mkdirSync: mkdirSync,
-        unlinkSync: unlinkSync
-    }
-}
-
 function _argsArray(args) {
     return Array.prototype.slice.call(args, 0);
 }
 
 function safeCall(optionalThis, func, errorReturnValue) {
-    exports.error = null;
+    safeCall.error = null;
 
     if (typeof optionalThis === 'function') {
         errorReturnValue = func;
@@ -40,7 +20,7 @@ function safeCall(optionalThis, func, errorReturnValue) {
     try {
         return func.call(optionalThis);
     } catch (e) {
-        exports.error = e;
+        safeCall.error = e;
         return errorReturnValue;
     }
 }
@@ -95,4 +75,24 @@ function unlinkSync() {
     var args = _argsArray(arguments);
     return safeCall(function () { return fs.unlinkSync.apply(fs, args); }) !== null;
 }
+
+safeCall.safeCall = safeCall; // compat
+
+safeCall.JSON = {
+    parse: jsonParse,
+    stringify: jsonStringify
+};
+
+safeCall.fs = {
+    openSync: openSync,
+    closeSync: closeSync,
+    readFileSync: readFileSync,
+    writeFileSync: writeFileSync,
+    statSync: statSync,
+    existsSync: existsSync,
+    mkdirSync: mkdirSync,
+    unlinkSync: unlinkSync
+};
+
+exports = module.exports = safeCall;
 

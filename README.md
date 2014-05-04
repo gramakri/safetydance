@@ -34,7 +34,7 @@ Usage
 -----
 You can call arbitrary synchronous functions without having to worry about exceptions.
 ```
-var safeCall = require('safetydance').safeCall;
+var safeCall = require('safetydance');
 var result = safeCall(function () { return 1 + 2; }); // will return 3
 result = safeCall(function () { throw new Error('bad'); }); // will return null
 ```
