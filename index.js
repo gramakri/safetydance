@@ -1,4 +1,5 @@
-var fs = require('fs');
+var assert = require('assert'),
+    fs = require('fs');
 
 function _argsArray(args) {
     return Array.prototype.slice.call(args, 0);
@@ -76,6 +77,27 @@ function unlinkSync() {
     return safeCall(function () { return fs.unlinkSync.apply(fs, args); }) !== null;
 }
 
+// http://stackoverflow.com/questions/6491463
+// currently, '.' is assumed to be the separator
+function query(o, s, defaultValue) {
+    if (!s) return o;
+
+    assert(typeof s === 'string');
+
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+
+    var a = s.split('.'); // always returns an array
+    for (var i = 0; i < a.length; i++) {
+        var n = a[i];
+
+        if (!o || typeof o !== 'object' || !(n in o)) return defaultValue;
+
+        o = o[n];
+    }
+    return o;
+}
+
 safeCall.safeCall = safeCall; // compat
 
 safeCall.JSON = {
@@ -93,6 +115,8 @@ safeCall.fs = {
     mkdirSync: mkdirSync,
     unlinkSync: unlinkSync
 };
+
+safeCall.query = query;
 
 exports = module.exports = safeCall;
 

@@ -60,6 +60,32 @@ console.log(json); // { totally: "json" }
 console.log(safe.error); // will be null
 ```
 
+safe.query
+----------
+safe.query can be used to access nested object properties. For example,
+the code below can throw an exception if any of the nested objects does
+not contain the accesses properties:
+```
+var capital = data.countries.norway.capital;
+```
+
+This can be rewritten as:
+```
+var capital = safe.query(data, 'countries.norway.capital'); // returns undefined if not found
+```
+
+You can also specify a default:
+```
+var capital = safe.query(data, 'countries.norway.capital', 'oslo'); // return oslo if not found
+```
+
+Works for deeply nested properties as well (use [] for array access):
+```
+var item = safe.query(data, 'key[0][3].some.fancy[45].nested.5.value');
+```
+
+Property names with '.' in them are not supported.
+
 API
 ---
 * safeCall(optionalThis, functionToCall, valueToReturnIfErrored)

@@ -111,3 +111,69 @@ describe('safeCall (compat)', function () {
     });
 });
 
+describe('query', function () {
+    it('should return self on falsy query', function () {
+        var data = { x: 10, y: 20 };
+        expect(safe.query(data, '')).to.equal(data);
+        expect(safe.query(data, null)).to.equal(data);
+    });
+
+    it('can access top level queries', function () {
+        var data = { x: 10, y: 20 };
+        expect(safe.query(data, 'x')).to.equal(10);
+        expect(safe.query(data, '.x')).to.equal(10);
+        expect(safe.query(data, 'y')).to.equal(20);
+        expect(safe.query(data, '.y')).to.equal(20);
+    });
+
+    it('can access nested queries on objects', function () {
+        var data = { points: [ { x: 10, y: 20 }, { x: 40, y: 50 } ] };
+        expect(safe.query(data, 'points[0].x')).to.equal(10);
+        expect(safe.query(data, 'points[1].y')).to.equal(50);
+        expect(safe.query(data, 'points.1.y')).to.equal(50);
+        expect(safe.query(data, 'points')).to.equal(data.points);
+        expect(safe.query(data, '.points')).to.equal(data.points);
+        expect(safe.query(data, '.points[0]')).to.equal(data.points[0]);
+    });
+
+    it('can access nested queries on arrays', function () {
+        var data = [ { x: 10, y: 20 }, { x: 40, y: 50 } ];
+        expect(safe.query(data, '[0].x')).to.equal(10);
+        expect(safe.query(data, '[1].y')).to.equal(50);
+        expect(safe.query(data, '1.y')).to.equal(50);
+        expect(safe.query(data, '')).to.equal(data);
+    });
+
+    it('does not throw for bad queries', function () {
+        var data = { points: [ { x: 10, y: 20 }, { x: 40, y: 50 } ] };
+        expect(safe.query(data, '.')).to.equal(undefined);
+        expect(safe.query(data, 'something')).to.equal(undefined);
+        expect(safe.query(data, 'points[4]')).to.equal(undefined);
+        expect(safe.query(data, 'points[4].random')).to.equal(undefined);
+        expect(safe.query(data, 'points.random')).to.equal(undefined);
+        expect(safe.query(data, 'points.0.well')).to.equal(undefined);
+        expect(safe.query(data, 'points.')).to.equal(undefined);
+        expect(safe.query(data, 'points..')).to.equal(undefined);
+    });
+
+    it('should return defaultValue for bad queries', function () {
+        var data = { points: [ { x: 10, y: 20 }, { x: 40, y: 50 } ] };
+        var defaultValue = '34';
+
+        expect(safe.query(data, '.', defaultValue)).to.equal(defaultValue);
+        expect(safe.query(data, 'something', defaultValue)).to.equal(defaultValue);
+        expect(safe.query(data, 'points[4]', defaultValue)).to.equal(defaultValue);
+        expect(safe.query(data, 'points[4].random', defaultValue)).to.equal(defaultValue);
+        expect(safe.query(data, 'points.random', defaultValue)).to.equal(defaultValue);
+        expect(safe.query(data, 'points.0.well', defaultValue)).to.equal(defaultValue);
+        expect(safe.query(data, 'points.', defaultValue)).to.equal(defaultValue);
+        expect(safe.query(data, 'points..', defaultValue)).to.equal(defaultValue);
+    });
+
+    // maybe make these work someday
+    it('does not work for keys with .', function () {
+        var data = { '0.12': 34 };
+        expect(safe.query(data, '0.12')).to.equal(undefined);
+    });
+});
+
