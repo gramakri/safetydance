@@ -1,7 +1,7 @@
 {
   "name": "safetydance",
   "description": "Exception safety in node.js",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "author": {
     "name": "Girish Ramakrishnan",
     "email": "girish@forwardbias.in"
