@@ -98,6 +98,34 @@ function query(o, s, defaultValue) {
     return o;
 }
 
+// TODO: support array format like [0].some.value
+function set(o, s, value) {
+    if (!s) return o;
+
+    assert(typeof s === 'string');
+
+    if (!o || typeof o !== 'object') o = { };
+
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+
+    var a = s.split('.'); // always returns an array
+    var io = o;
+    for (var i = 0; i < a.length - 1; i++) {
+        var n = a[i];
+
+        if (!(n in io) || !io[n] || typeof io[n] !== 'object') {
+            io[n] = { };
+        }
+
+        io = io[n];
+    }
+    
+    io[a[a.length - 1]] = value;
+
+    return o;
+}
+
 safeCall.safeCall = safeCall; // compat
 
 safeCall.JSON = {
@@ -117,6 +145,7 @@ safeCall.fs = {
 };
 
 safeCall.query = query;
+safeCall.set = set;
 
 exports = module.exports = safeCall;
 

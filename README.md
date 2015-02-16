@@ -86,6 +86,28 @@ var item = safe.query(data, 'key[0][3].some.fancy[45].nested.5.value');
 
 Property names with '.' in them are not supported.
 
+safe.set
+--------
+safe.set is the complement of safe.query.
+```
+var obj = { };
+safe.set(obj, 'some.deep.value', 42);
+console.log(obj.some.deep.value); // prints 42
+```
+
+If obj is not a valid object, it will create one for you
+```
+obj = safe.set(null, 'some.deep.value', 42);
+console.log(obj.some.deep.value); // prints 42
+```
+
+If any of the values in the chain is not an object, it will get replaced.
+```
+var obj = { some: 43 };
+safe.set(obj, 'some.deep.value', 42);
+console.log(obj.some.deep.value); // prints 42; some is gone
+```
+
 API
 ---
 * safeCall(optionalThis, functionToCall, valueToReturnIfErrored)

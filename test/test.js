@@ -177,3 +177,39 @@ describe('query', function () {
     });
 });
 
+describe('set', function () {
+    it('can set any level property', function () {
+        var obj = { };
+        safe.set(obj, 'x', 42);
+        expect(obj.x).to.equal(42);
+
+        safe.set(obj, 'some.deep.property', 42);
+        expect(obj.some.deep.property).to.equal(42);
+    });
+
+    it('returns new object if source is null', function () {
+        var obj = safe.set(null, 'x', 42);
+        expect(obj.x).to.equal(42);
+
+        obj = safe.set(undefined, 'x', 42);
+        expect(obj.x).to.equal(42);
+    });
+
+    it('deletes non-object properties in path', function () {
+        var obj = { some: 42 };
+        safe.set(obj, 'some.deep.property', 42);
+        expect(obj.some.deep.property).to.equal(42);
+
+        obj = 42;
+        obj = safe.set(obj, 'some.deep.property', 42);
+        expect(obj.some.deep.property).to.equal(42);
+    });
+
+    it('preserves arrays', function () {
+        var obj = { some: [ 34 ] };
+        safe.set(obj, 'some[0]', 42);
+        expect(obj.some[0]).to.equal(42);
+        expect(obj.some instanceof Array).to.be(true);
+    });
+});
+
