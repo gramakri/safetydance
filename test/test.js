@@ -72,11 +72,11 @@ describe('fs', function () {
 
 describe('url', function () {
     it('should not throw for parsing invalid url', function () {
-        expect(safe.url.parse(undefined) === null);
-        expect(safe.url.parse(NaN) === null);
-        expect(safe.url.parse(43) === null);
-        expect(safe.url.parse(null) === null);
-        expect(safe.url.parse('random') === null);
+        expect(safe.url.parse(undefined)).to.be(null);
+        expect(safe.url.parse(NaN)).to.be(null);
+        expect(safe.url.parse(43)).to.be(null);
+        expect(safe.url.parse(null)).to.be(null);
+        expect(safe.url.parse({ })).to.be(null);
     });
 
     it('should parse valid urls', function () {
