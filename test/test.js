@@ -12,7 +12,8 @@ var safe = require('../index.js'),
     expect = require('expect.js'),
     os = require('os'),
     path = require('path'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    url = require('url');
 
 describe('JSON', function () {
     it('should not throw error when parsing bad JSON', function () {
@@ -66,6 +67,20 @@ describe('fs', function () {
     });
     it('should not throw when closing non-existent fd', function () {
         expect(safe.fs.closeSync(1242)).to.be(0);
+    });
+});
+
+describe('url', function () {
+    it('should not throw for parsing invalid url', function () {
+        expect(safe.url.parse(undefined) === null);
+        expect(safe.url.parse(NaN) === null);
+        expect(safe.url.parse(43) === null);
+        expect(safe.url.parse(null) === null);
+        expect(safe.url.parse('random') === null);
+    });
+
+    it('should parse valid urls', function () {
+        expect(safe.url.parse('http://www.forwardbias.in')).to.eql(url.parse('http://www.forwardbias.in'));
     });
 });
 

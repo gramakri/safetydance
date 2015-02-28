@@ -1,5 +1,8 @@
+'use strict';
+
 var assert = require('assert'),
-    fs = require('fs');
+    fs = require('fs'),
+    url = require('url');
 
 function _argsArray(args) {
     return Array.prototype.slice.call(args, 0);
@@ -77,6 +80,11 @@ function unlinkSync() {
     return safeCall(function () { return fs.unlinkSync.apply(fs, args); }) !== null;
 }
 
+function urlParse() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return url.parse.apply(url, args); }, null);
+}
+
 // http://stackoverflow.com/questions/6491463
 // currently, '.' is assumed to be the separator
 function query(o, s, defaultValue) {
@@ -142,6 +150,10 @@ safeCall.fs = {
     existsSync: existsSync,
     mkdirSync: mkdirSync,
     unlinkSync: unlinkSync
+};
+
+safeCall.url = {
+    parse: urlParse
 };
 
 safeCall.query = query;
