@@ -134,6 +134,36 @@ function set(o, s, value) {
     return o;
 }
 
+function unset(o, s) {
+    if (!s) return o;
+
+    assert(typeof s === 'string');
+
+    if (!o || typeof o !== 'object') return o;
+
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+
+    var a = s.split('.'); // always returns an array
+    var io = o;
+    for (var i = 0; i < a.length - 1; i++) {
+        var n = a[i];
+
+        if (!(n in io)) return o;
+
+        if (!io[n] || typeof io[n] !== 'object') {
+            delete io[n];
+            return o;
+        }
+
+        io = io[n];
+    }
+
+    delete io[a[a.length - 1]];
+
+    return o;
+}
+
 safeCall.safeCall = safeCall; // compat
 
 safeCall.JSON = {
@@ -158,6 +188,7 @@ safeCall.url = {
 
 safeCall.query = query;
 safeCall.set = set;
+safeCall.unset = unset;
 
 exports = module.exports = safeCall;
 

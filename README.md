@@ -108,6 +108,16 @@ safe.set(obj, 'some.deep.value', 42);
 console.log(obj.some.deep.value); // prints 42; some is gone
 ```
 
+safe.unset
+----------
+safe.unset unsets properties in objects.
+```
+var obj = { some: { deep: { value: 42 } } };
+safe.unset(obj, 'some.deep.value');
+console.log(obj); // prints { some: { deep: { } } }
+```
+
+
 API
 ---
 * safeCall(optionalThis, functionToCall, valueToReturnIfErrored)

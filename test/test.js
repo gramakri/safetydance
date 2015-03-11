@@ -228,3 +228,19 @@ describe('set', function () {
     });
 });
 
+describe('unset', function () {
+    it('works on non-objects', function () {
+        expect(safe.unset(4, 'nice.try')).to.be(4);
+        expect(safe.unset(null, 'nice.try')).to.be(null);
+        expect(safe.unset(undefined, 'nice.try')).to.be(undefined);
+    });
+
+    it('unsets properties on objects', function () {
+        var obj = { x: { y: { z: 34 } } };
+        expect(safe.unset(obj, 'x.y.z')).to.eql({ x: { y: { } } });
+        expect(safe.unset(obj, 'x.y')).to.eql({ x: { } });
+        expect(safe.unset(obj, 'x')).to.eql({ });
+        expect(safe.unset(obj, '')).to.equal(obj);
+    });
+});
+
