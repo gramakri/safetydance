@@ -80,6 +80,11 @@ function unlinkSync() {
     return safeCall(function () { return fs.unlinkSync.apply(fs, args); }) !== null;
 }
 
+function renameSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.renameSync.apply(fs, args); }) !== null;
+}
+
 function urlParse() {
     var args = _argsArray(arguments);
     return safeCall(function () { return url.parse.apply(url, args); }, null);
@@ -179,7 +184,8 @@ safeCall.fs = {
     statSync: statSync,
     existsSync: existsSync,
     mkdirSync: mkdirSync,
-    unlinkSync: unlinkSync
+    unlinkSync: unlinkSync,
+    renameSync: renameSync
 };
 
 safeCall.url = {

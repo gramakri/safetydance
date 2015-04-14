@@ -131,5 +131,6 @@ API
   * fs.existsSync - returns false on error, true/false on success
   * fs.mkdirSync - returns false on error, true on success
   * fs.unlinkSync - returns false on error, true on success
+  * fs.renameSync - returns false on error, true on success
   * url.parse = returns null on error, object on success
 
