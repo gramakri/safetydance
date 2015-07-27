@@ -244,3 +244,16 @@ describe('unset', function () {
     });
 });
 
+describe('require', function () {
+    it('returns null for non-existing modules', function () {
+        expect(safe.require('momo')).to.be(null);
+        expect(safe.require('momo.json')).to.be(null);
+        expect(safe.require('momo', 3)).to.be(null);
+    });
+
+    it('returns module for existing modules', function () {
+        expect(safe.require('fs')).to.be.ok();
+        expect(safe.require('fs').readFile).to.be.a(Function);
+    });
+});
+

@@ -90,6 +90,11 @@ function urlParse() {
     return safeCall(function () { return url.parse.apply(url, args); }, null);
 }
 
+function safeRequire() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return require.apply(null, args); }, null);
+}
+
 // http://stackoverflow.com/questions/6491463
 // currently, '.' is assumed to be the separator
 function query(o, s, defaultValue) {
@@ -187,6 +192,8 @@ safeCall.fs = {
     unlinkSync: unlinkSync,
     renameSync: renameSync
 };
+
+safeCall.require = safeRequire;
 
 safeCall.url = {
     parse: urlParse
