@@ -1,6 +1,7 @@
 'use strict';
 
 var assert = require('assert'),
+    child_process = require('child_process'),
     fs = require('fs'),
     url = require('url');
 
@@ -93,6 +94,11 @@ function urlParse() {
 function safeRequire() {
     var args = _argsArray(arguments);
     return safeCall(function () { return require.apply(null, args); }, null);
+}
+
+function execSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return child_process.execSync.apply(child_process, args); }, null);
 }
 
 // http://stackoverflow.com/questions/6491463
@@ -191,6 +197,10 @@ safeCall.fs = {
     mkdirSync: mkdirSync,
     unlinkSync: unlinkSync,
     renameSync: renameSync
+};
+
+safeCall.child_process.execSync = {
+    execSync: execSync
 };
 
 safeCall.require = safeRequire;
