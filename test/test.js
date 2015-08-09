@@ -257,3 +257,14 @@ describe('require', function () {
     });
 });
 
+describe('child_process', function () {
+    it('returns null on invalid command', function () {
+        expect(safe.child_process.execSync('blah')).to.be(null);
+        expect(safe.child_process.execSync('sudo ls', { timeout: 1 })).to.be(null);
+    });
+
+    it('return stdio on valid command', function () {
+        expect(safe.child_process.execSync('true')).to.be.a(Buffer);
+        expect(safe.child_process.execSync('cat', { input: 'cloudron' })).to.eql(new Buffer('cloudron', 'utf8'));
+    });
+});
