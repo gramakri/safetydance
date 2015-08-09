@@ -199,7 +199,7 @@ safeCall.fs = {
     renameSync: renameSync
 };
 
-safeCall.child_process.execSync = {
+safeCall.child_process = {
     execSync: execSync
 };
 
