@@ -132,6 +132,7 @@ API
   * fs.mkdirSync - returns false on error, true on success
   * fs.unlinkSync - returns false on error, true on success
   * fs.renameSync - returns false on error, true on success
+  * fs.readdirSync - returns null on error, file array on success
   * url.parse = returns null on error, object on success
   * require - returns null on error, module on success
   * child_process.execSync - returns null on error, stdio on success

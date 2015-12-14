@@ -65,6 +65,11 @@ function statSync() {
     return safeCall(function () { return fs.statSync.apply(fs, args); }, null);
 }
 
+function readdirSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.readdirSync.apply(fs, args); }, null);
+}
+
 // afaik, this never throws
 function existsSync() {
     var args = _argsArray(arguments);
@@ -196,7 +201,8 @@ safeCall.fs = {
     existsSync: existsSync,
     mkdirSync: mkdirSync,
     unlinkSync: unlinkSync,
-    renameSync: renameSync
+    renameSync: renameSync,
+    readdirSync: readdirSync
 };
 
 safeCall.child_process = {

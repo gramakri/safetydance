@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 'use strict';
 
 /* global it:false */
@@ -67,6 +65,12 @@ describe('fs', function () {
     });
     it('should not throw when closing non-existent fd', function () {
         expect(safe.fs.closeSync(1242)).to.be(0);
+    });
+    it('should list files', function () {
+        expect(safe.fs.readdirSync(__dirname)).to.be.an(Array);
+    });
+    it('should return null when listing non existing dir', function () {
+        expect(safe.fs.readdirSync(__dirname + '/thiscannotbe')).to.be(null);
     });
 });
 
