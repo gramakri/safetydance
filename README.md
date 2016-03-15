@@ -136,4 +136,4 @@ API
   * url.parse = returns null on error, object on success
   * require - returns null on error, module on success
   * child_process.execSync - returns null on error, stdio on success
-
+  * child_process.spawnSync - return null on error, object on success

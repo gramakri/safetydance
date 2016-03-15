@@ -106,6 +106,11 @@ function execSync() {
     return safeCall(function () { return child_process.execSync.apply(child_process, args); }, null);
 }
 
+function spawnSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return child_process.spawnSync.apply(child_process, args); }, null);
+}
+
 // http://stackoverflow.com/questions/6491463
 // currently, '.' is assumed to be the separator
 function query(o, s, defaultValue) {
@@ -206,7 +211,8 @@ safeCall.fs = {
 };
 
 safeCall.child_process = {
-    execSync: execSync
+    execSync: execSync,
+    spawnSync: spawnSync
 };
 
 safeCall.require = safeRequire;
