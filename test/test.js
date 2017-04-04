@@ -72,6 +72,9 @@ describe('fs', function () {
     it('should return null when listing non existing dir', function () {
         expect(safe.fs.readdirSync(__dirname + '/thiscannotbe')).to.be(null);
     });
+    it('show not throw when chmod of non-existent file', function () {
+        expect(safe.fs.chmodSync('/tmp/blah', '600')).to.be(false);
+    });
 });
 
 describe('url', function () {
