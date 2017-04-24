@@ -86,6 +86,11 @@ function unlinkSync() {
     return safeCall(function () { return fs.unlinkSync.apply(fs, args); }) !== null;
 }
 
+function rmdirSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.rmdirSync.apply(fs, args); }) !== null;
+}
+
 function chmodSync() {
     var args = _argsArray(arguments);
     return safeCall(function () { return fs.chmodSync.apply(fs, args); }) !== null;
@@ -210,6 +215,7 @@ safeCall.fs = {
     statSync: statSync,
     existsSync: existsSync,
     mkdirSync: mkdirSync,
+    rmdirSync: rmdirSync,
     unlinkSync: unlinkSync,
     renameSync: renameSync,
     readdirSync: readdirSync,

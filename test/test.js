@@ -75,6 +75,14 @@ describe('fs', function () {
     it('show not throw when chmod of non-existent file', function () {
         expect(safe.fs.chmodSync('/tmp/blah', '600')).to.be(false);
     });
+    it('should return true for removing dir', function () {
+        var tmpdir = path.join(os.tmpdir(), 'safetydance-test-' + crypto.randomBytes(4).readUInt32LE(0));
+        safe.fs.mkdirSync(tmpdir);
+        expect(safe.fs.rmdirSync(tmpdir)).to.be(true);
+    });
+    it('should not throw when removing missing dir', function () {
+        expect(safe.fs.rmdirSync('/this/cannot/possibly/exist')).to.be(false);
+    });
 });
 
 describe('url', function () {
