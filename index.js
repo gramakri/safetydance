@@ -96,6 +96,11 @@ function chmodSync() {
     return safeCall(function () { return fs.chmodSync.apply(fs, args); }) !== null;
 }
 
+function readlinkSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.readlinkSync.apply(fs, args); }, null);
+}
+
 function renameSync() {
     var args = _argsArray(arguments);
     return safeCall(function () { return fs.renameSync.apply(fs, args); }) !== null;
@@ -219,7 +224,8 @@ safeCall.fs = {
     unlinkSync: unlinkSync,
     renameSync: renameSync,
     readdirSync: readdirSync,
-    chmodSync: chmodSync
+    chmodSync: chmodSync,
+    readlinkSync: readlinkSync
 };
 
 safeCall.child_process = {
