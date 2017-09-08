@@ -1,10 +1,10 @@
 {
   "name": "safetydance",
   "description": "Exception safety in node.js",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": {
     "name": "Girish Ramakrishnan",
-    "email": "girish@forwardbias.in"
+    "email": "girish@cloudron.io"
   },
   "license": "MIT",
   "engines": [
