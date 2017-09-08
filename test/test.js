@@ -78,6 +78,9 @@ describe('fs', function () {
     it('show not throw when reading link of non-existent file', function () {
         expect(safe.fs.readlinkSync('/tmp/blah')).to.be(null);
     });
+    it('show not throw when resolving link of non-existent file', function () {
+        expect(safe.fs.realpathSync('/tmp/blah')).to.be(null);
+    });
     it('should return true for removing dir', function () {
         var tmpdir = path.join(os.tmpdir(), 'safetydance-test-' + crypto.randomBytes(4).readUInt32LE(0));
         safe.fs.mkdirSync(tmpdir);
