@@ -98,6 +98,10 @@ describe('fs', function () {
     it('should lstat existing file', function () {
         expect(safe.fs.lstatSync('/tmp')).to.be.ok();
     });
+    it('can append to file', function () {
+        var fd = safe.fs.openSync('/tmp/append_tester', 'w');
+        expect(safe.fs.appendFileSync(fd, 'hello world')).to.be(true);
+    });
 });
 
 describe('url', function () {

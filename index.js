@@ -122,6 +122,11 @@ function renameSync() {
     return safeCall(function () { return fs.renameSync.apply(fs, args); }) !== null;
 }
 
+function appendFileSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.appendFileSync.apply(fs, args); }) !== null;
+}
+
 function urlParse() {
     var args = _argsArray(arguments);
     return safeCall(function () { return url.parse.apply(url, args); }, null);
@@ -243,7 +248,8 @@ safeCall.fs = {
     readdirSync: readdirSync,
     chmodSync: chmodSync,
     readlinkSync: readlinkSync,
-    realpathSync: realpathSync
+    realpathSync: realpathSync,
+    appendFileSync: appendFileSync,
 };
 
 safeCall.child_process = {
