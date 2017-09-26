@@ -89,6 +89,15 @@ describe('fs', function () {
     it('should not throw when removing missing dir', function () {
         expect(safe.fs.rmdirSync('/this/cannot/possibly/exist')).to.be(false);
     });
+    it('should not throw when trying to stat non-existent file', function () {
+        expect(safe.fs.statSync('/tmp/whatever')).to.be(null);
+    });
+    it('should not throw when trying to lstat non-existent file', function () {
+        expect(safe.fs.lstatSync('/tmp/whatever')).to.be(null);
+    });
+    it('should lstat existing file', function () {
+        expect(safe.fs.lstatSync('/tmp')).to.be.ok();
+    });
 });
 
 describe('url', function () {

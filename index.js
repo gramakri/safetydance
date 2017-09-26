@@ -30,6 +30,12 @@ function safeCall(optionalThis, func, errorReturnValue) {
     }
 }
 
+function wrap(optionalThis, func, errorReturnValue) {
+    return function () {
+        return safeCall(optionalThis, func, errorReturnValue);
+    }
+}
+
 function jsonParse() {
     var args = _argsArray(arguments);
     return safeCall(function () { return JSON.parse.apply(JSON, args); }, null);
@@ -63,6 +69,11 @@ function writeFileSync() {
 function statSync() {
     var args = _argsArray(arguments);
     return safeCall(function () { return fs.statSync.apply(fs, args); }, null);
+}
+
+function lstatSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.lstatSync.apply(fs, args); }, null);
 }
 
 function readdirSync() {
@@ -223,6 +234,7 @@ safeCall.fs = {
     readFileSync: readFileSync,
     writeFileSync: writeFileSync,
     statSync: statSync,
+    lstatSync: lstatSync,
     existsSync: existsSync,
     mkdirSync: mkdirSync,
     rmdirSync: rmdirSync,
