@@ -88,7 +88,7 @@ function mkdirSync() {
 
 function chownSync() {
     var args = _argsArray(arguments);
-    return safeCall(function () { return fs.chownSync.apply(fs, args); }, false);
+    return safeCall(function () { return fs.chownSync.apply(fs, args); }) !== null;
 }
 
 function unlinkSync() {
