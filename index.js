@@ -30,12 +30,6 @@ function safeCall(optionalThis, func, errorReturnValue) {
     }
 }
 
-function wrap(optionalThis, func, errorReturnValue) {
-    return function () {
-        return safeCall(optionalThis, func, errorReturnValue);
-    }
-}
-
 function jsonParse() {
     var args = _argsArray(arguments);
     return safeCall(function () { return JSON.parse.apply(JSON, args); }, null);
@@ -90,6 +84,11 @@ function existsSync() {
 function mkdirSync() {
     var args = _argsArray(arguments);
     return safeCall(function () { return fs.mkdirSync.apply(fs, args); }) !== null;
+}
+
+function chownSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.chownSync.apply(fs, args); }, false);
 }
 
 function unlinkSync() {
@@ -250,6 +249,7 @@ safeCall.fs = {
     readlinkSync: readlinkSync,
     realpathSync: realpathSync,
     appendFileSync: appendFileSync,
+    chownSync: chownSync
 };
 
 safeCall.child_process = {

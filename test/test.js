@@ -102,6 +102,9 @@ describe('fs', function () {
         var fd = safe.fs.openSync('/tmp/append_tester', 'w');
         expect(safe.fs.appendFileSync(fd, 'hello world')).to.be(true);
     });
+    it('should not throw when trying to chown non-existent file', function () {
+        expect(safe.fs.chownSync('/tmp/whatever', 0, 0)).to.be(false);
+    });
 });
 
 describe('url', function () {
