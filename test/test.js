@@ -229,7 +229,7 @@ describe('query', function () {
     });
 });
 
-describe('set', function () {
+describe('set (string)', function () {
     it('can set any level property', function () {
         var obj = { };
         safe.set(obj, 'x', 42);
@@ -265,7 +265,24 @@ describe('set', function () {
     });
 });
 
-describe('unset', function () {
+describe('set (array)', function () {
+    it('can set any level property', function () {
+        var obj = { };
+        safe.set(obj, ['x'], 42);
+        expect(obj.x).to.equal(42);
+
+        safe.set(obj, ['some', 'deep', 'property'], 42);
+        expect(obj.some.deep.property).to.equal(42);
+    });
+
+    it('can have dot in property names', function () {
+        var obj = { };
+        safe.set(obj, [ '/home/user/code.git' ], 42);
+        expect(obj['/home/user/code.git']).to.be(42);
+    });
+});
+
+describe('unset (string)', function () {
     it('works on non-objects', function () {
         expect(safe.unset(4, 'nice.try')).to.be(4);
         expect(safe.unset(null, 'nice.try')).to.be(null);
@@ -280,6 +297,28 @@ describe('unset', function () {
         expect(safe.unset(obj, '')).to.equal(obj);
     });
 });
+
+describe('unset (array)', function () {
+    it('works on non-objects', function () {
+        expect(safe.unset(4, ['nice', 'try'])).to.be(4);
+    });
+
+    it('unsets properties on objects', function () {
+        var obj = { x: { y: { z: 34 } } };
+        expect(safe.unset(obj, ['x','y','z'])).to.eql({ x: { y: { } } });
+        expect(safe.unset(obj, ['x','y'])).to.eql({ x: { } });
+        expect(safe.unset(obj, ['x'])).to.eql({ });
+        expect(safe.unset(obj, [])).to.equal(obj);
+    });
+
+    it('unsets dot in property names', function () {
+        var obj = { };
+        obj['/home/user/code.git'] = 42;
+
+        expect(safe.unset(obj, ['/home/user/code.git'])).to.eql({ });
+    });
+});
+
 
 describe('require', function () {
     it('returns null for non-existing modules', function () {

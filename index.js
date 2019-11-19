@@ -151,12 +151,18 @@ function spawnSync() {
 function query(o, s, defaultValue) {
     if (!s) return o;
 
-    assert(typeof s === 'string');
+    assert(typeof s === 'string' || Array.isArray(s));
 
-    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-    s = s.replace(/^\./, '');           // strip a leading dot
+    let a;
+    if (Array.isArray(s)) { // already split up
+        a = s;
+    } else {
+        s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+        s = s.replace(/^\./, '');           // strip a leading dot
 
-    var a = s.split('.'); // always returns an array
+        a = s.split('.'); // always returns an array
+    }
+
     for (var i = 0; i < a.length; i++) {
         var n = a[i];
 
@@ -171,14 +177,20 @@ function query(o, s, defaultValue) {
 function set(o, s, value) {
     if (!s) return o;
 
-    assert(typeof s === 'string');
+    assert(typeof s === 'string' || Array.isArray(s));
 
     if (!o || typeof o !== 'object') o = { };
 
-    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-    s = s.replace(/^\./, '');           // strip a leading dot
+    let a;
+    if (Array.isArray(s)) {
+        a = s;
+    } else {
+        s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+        s = s.replace(/^\./, '');           // strip a leading dot
 
-    var a = s.split('.'); // always returns an array
+        a = s.split('.'); // always returns an array
+    }
+
     var io = o;
     for (var i = 0; i < a.length - 1; i++) {
         var n = a[i];
@@ -198,14 +210,20 @@ function set(o, s, value) {
 function unset(o, s) {
     if (!s) return o;
 
-    assert(typeof s === 'string');
+    assert(typeof s === 'string' || Array.isArray(s));
 
     if (!o || typeof o !== 'object') return o;
 
-    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-    s = s.replace(/^\./, '');           // strip a leading dot
+    let a;
+    if (Array.isArray(s)) {
+        a = s;
+    } else {
+        s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+        s = s.replace(/^\./, '');           // strip a leading dot
 
-    var a = s.split('.'); // always returns an array
+        a = s.split('.'); // always returns an array
+    }
+
     var io = o;
     for (var i = 0; i < a.length - 1; i++) {
         var n = a[i];
