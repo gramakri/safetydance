@@ -121,6 +121,11 @@ function renameSync() {
     return safeCall(function () { return fs.renameSync.apply(fs, args); }) !== null;
 }
 
+function readSync() {
+    var args = _argsArray(arguments);
+    return safeCall(function () { return fs.renameSync.apply(fs, args); }) !== null;
+}
+
 function appendFileSync() {
     var args = _argsArray(arguments);
     return safeCall(function () { return fs.appendFileSync.apply(fs, args); }) !== null;
@@ -253,6 +258,7 @@ safeCall.JSON = {
 safeCall.fs = {
     openSync: openSync,
     closeSync: closeSync,
+    readSync: readSync,
     readFileSync: readFileSync,
     writeFileSync: writeFileSync,
     statSync: statSync,
