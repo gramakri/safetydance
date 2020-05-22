@@ -123,7 +123,7 @@ function renameSync() {
 
 function readSync() {
     var args = _argsArray(arguments);
-    return safeCall(function () { return fs.renameSync.apply(fs, args); }) !== null;
+    return safeCall(function () { return fs.readSync.apply(fs, args); }) !== null;
 }
 
 function appendFileSync() {
