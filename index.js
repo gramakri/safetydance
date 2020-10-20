@@ -200,6 +200,8 @@ function set(o, s, value) {
     for (var i = 0; i < a.length - 1; i++) {
         var n = a[i];
 
+        if('__proto__' === a[i]  || 'prototype' === a[i] || 'constructor' === a[i])return o;
+
         if (!(n in io) || !io[n] || typeof io[n] !== 'object') {
             io[n] = { };
         }
@@ -292,4 +294,3 @@ safeCall.set = set;
 safeCall.unset = unset;
 
 exports = module.exports = safeCall;
-
