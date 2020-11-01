@@ -1,3 +1,5 @@
+**Code moved to https://git.cloudron.io/cloudron/safetydance/**
+
 Safety Dance
 ============
 
